@@ -1,8 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-
 import { BsEyeFill, BsPlus } from 'react-icons/bs';
-
 import { useAppDispatch } from '../hooks/rtk';
 import { addToCart } from '../state/cartSlice';
 import { Product as ProductType } from '../types/Product';
