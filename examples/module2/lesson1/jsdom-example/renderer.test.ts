@@ -16,6 +16,9 @@ describe('User renderer', () => {
     const container = document.createElement('div');
     renderItems(container, users);
     expect(Array.from(container.querySelectorAll('li'))).toHaveLength(3);
+    container.querySelectorAll('li').forEach((el, i) => {
+      expect(el.textContent).toContain(`${users[i].role === 'admin' && '(Admin)'} Name: ${users[i].name}, Age: ${users[i].age}`)
+    })
   });
 
   test('should render only regular users if non-admin is rendering the list', () => {
@@ -24,5 +27,9 @@ describe('User renderer', () => {
     const container = document.createElement('div');
     renderItems(container, users);
     expect(Array.from(container.querySelectorAll('li'))).toHaveLength(2);
+    const filteredUsers = users.filter(user => user.role !== 'admin')
+    container.querySelectorAll('li').forEach((el, i) => {
+      expect(el.textContent).toContain(`Name: ${filteredUsers[i].name}, Age: ${filteredUsers[i].age}`)
+    })
   });
 });
