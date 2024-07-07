@@ -1,4 +1,4 @@
-export async function formValidator(
+export  function formValidator(
   firstName: string,
   lastName: string,
   age: number
@@ -12,8 +12,16 @@ export async function formValidator(
     errors.push('First name is required');
   }
 
+  if (firstName.length === 0) {
+    errors.push('First name has to have at least one character')
+  }
+
   if (!lastName) {
     errors.push('Last name is required');
+  }
+
+  if (lastName.length === 0) {
+    errors.push('Last name has to have at least one character')
   }
 
   if (age < 0) {
