@@ -31,7 +31,7 @@ export class MainPage {
   }
 
   async goToCommunityPortalPage() {
-    const communityPortalLinkHref = (await this.communityPortalLink.getAttribute('href'))!
+    const communityPortalLinkHref = (await this.communityPortalLink.getAttribute('href'))!;
     await this.communityPortalLink.click();
     return this.page.waitForURL(`**${communityPortalLinkHref}`);
   }

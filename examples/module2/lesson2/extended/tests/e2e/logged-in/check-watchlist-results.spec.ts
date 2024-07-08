@@ -5,7 +5,6 @@ import { HelpDeskPage } from '../../../pages/help-desk.page.ts';
 import { SearchResultsPage } from '../../../pages/search-results.page.ts';
 
 
-
 test('check watch list results', async ({ page }) => {
   const mainPage = new MainPage(page);
   await mainPage.navigate();
