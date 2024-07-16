@@ -1,4 +1,4 @@
-import { Character } from '../types/Character';
+import { Character } from '../api';
 
 export function CharacterCard({ character }: { character: Character }) {
   return (

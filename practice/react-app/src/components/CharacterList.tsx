@@ -1,5 +1,5 @@
-import { Character } from '../types/Character';
 import { CharacterCard } from './CharacterCard';
+import { Character } from '../api';
 
 export function CharacterList({ characters }: { characters: Character[] }) {
   return (
