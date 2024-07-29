@@ -1,16 +1,35 @@
 import axios from 'axios';
-import { LocationWeather } from '../models/LocationWeather';
+import { LocationWeather, LocationWeatherUS } from '../models/LocationWeather';
 import { parseLocation } from './LocationParser';
 import { WeatherRequest } from '../models/WeatherRequest';
+
+function isUSResponse(data: LocationWeather | LocationWeatherUS): data is LocationWeatherUS {
+  return 'Weather' in data.weatherDetails;
+}
+
+function parseData(data: LocationWeather | LocationWeatherUS): LocationWeather {
+  if (isUSResponse(data)) {
+    return {
+      city: data.city,
+      country: data.country,
+      weatherDetails: data.weatherDetails.Weather.map(weather => ({
+        ...weather,
+        averageTemperature: weather.average_temperature
+      }))
+    };
+  }
+  return data;
+}
 
 async function getWeatherData(
   request: WeatherRequest
 ): Promise<LocationWeather> {
-  const { data } = await axios.get<LocationWeather>(
+  const { data } = await axios.get<LocationWeather | LocationWeatherUS>(
     `/api/weather?city=${request.city}&country=${request.country}`
   );
 
-  return data;
+
+  return parseData(data);
 }
 
 export async function fetchWeather(
@@ -25,7 +44,7 @@ export async function fetchWeather(
   try {
     return await getWeatherData({
       city: request.city,
-      country: request.country,
+      country: request.country
     });
   } catch {
     throw new Error(
